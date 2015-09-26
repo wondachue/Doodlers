@@ -1,4 +1,4 @@
-# call911
+# Doodlers
 Integration Hackathon 2015
 
-A webapp using tropo api to make emergency calls on the web
+A webapp using hp text recognition api to create a safe environment for kids to share their art work
