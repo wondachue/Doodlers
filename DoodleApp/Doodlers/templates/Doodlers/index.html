@@ -1,0 +1,9 @@
+{% if latest_doodles %}
+    <ul>
+    {% for doodle in latest_doodles %}
+        <li><a href="/Doodlers/{{ doodle.title }}/">{{ doodle.title }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No Doodles are available.</p>
+{% endif %}
