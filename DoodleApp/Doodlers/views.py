@@ -29,28 +29,21 @@ def DoodleView(request, id):
                     num_bad += 1
 
     context = RequestContext(request, {
-            'doodle': current_doodle.title,
+            'doodle': current_doodle,
             'comments': comments,
             'scores': scores,
             'num_bad': num_bad,
     })
     return render(request, 'Doodlers/doodle.html', context)
 def comment(request, id):
-	p = get_object_or_404(Doodle, pk=id)
-	try:
-		selected_choice = p.choice_set.get(pk=request.POST['choice'])
-	except (KeyError, Choice.DoesNotExist):
-		return render(request, 'Doodlers/detail.html', {
-				'doodle': p,
-				'error_message': "You didn't select a choice",
-			})
-	else:
-		selected_choice.votes += 1
-		selected_choice.save()
-		# Always return an HttpResponseRedirect after successfully dealing
-        # with POST data. This prevents data from being posted twice if a
-        # user hits the Back button.
- 		return HttpResponseRedirect(reverse('doodle:results', args=(p.id,))) 
+	doodle = get_object_or_404(Doodle, pk=id)
+	print request.POST
+	comment_text = request.POST.get('comment_text', False);
+	if not comment_text:
+		raise Exception('Whoa no comment text!')
+
+	doodle.comment_set.create(comment_text=comment_text, pub_date=timezone.now())
+	return HttpResponseRedirect(reverse('Doodler:DoodleView', args=(id))) 
 def upload_picture(request, id):
 	p = get_object_or_404(Doodle, pk=id)
 	try:

@@ -1,15 +1,22 @@
 {% load staticfiles %}
-<script src="{{ STATIC_URL }}Doodlers/jquery-1.11.3.min.js"></script>
-<script src="{{ STATIC_URL }}Doodlers/jquery-migrate-1.2.1.min.js"></script>
-<script src="{{ STATIC_URL }}Doodlers/underscore.js"></script>
-<script src="{{ STATIC_URL }}Doodlers/backbone.js"></script>
+<script src="/static/Doodlers/jquery-1.11.3.min.js"></script>
+<script src="/static/Doodlers/jquery-migrate-1.2.1.min.js"></script>
+<script src="/static/Doodlers/underscore.js"></script>
+<script src="/static/Doodlers/backbone.js"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
 <link href="http://getbootstrap.com/examples/cover/cover.css" rel="stylesheet">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 
+<h1>{{doodle.title}}</h1>
 
-<h1>{{doodle}}</h1>
+<form action="{% url 'Doodlers:comment' doodle.id %}" method="post">
+	{% csrf_token %}
+	<textarea class="form-control" name="comment_text" form="usrform">
+	</textarea>
+	<input type="submit" value="Comment">
+</form>
+
 <ol>
 {% for comment in comments %}
 	{% for key, score in scores.items %}
