@@ -8,12 +8,5 @@
 <link href="http://getbootstrap.com/examples/cover/cover.css" rel="stylesheet">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 
-{% if latest_doodles %}
-    <ul>
-    {% for doodle in latest_doodles %}
-        <li><a href="/Doodlers/doodle/{{ doodle.id }}/">{{ doodle.title }}</a></li>
-    {% endfor %}
-    </ul>
-{% else %}
-    <p>No Doodles are available.</p>
-{% endif %}
+
+<a>{{ comment }}</a>

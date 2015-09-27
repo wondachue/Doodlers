@@ -10,7 +10,16 @@ def index(request):
         'latest_doodles': latest_doodles,
     })
     return render(request, 'Doodlers/index.html', context)
-def doodle(request, title):
-	response = "This is where %s doodle goes. Expect to see comments here" % title
-def comment(request, title):
-	response = "Commenting on %s doodle." % title
+def doodle(request, id):
+	response = "This is where %s doodle goes. Expect to see comments here" % Doodle.objects.get(pk=id).title
+	template = loader.get_template('Doodlers/doodle.html')
+	context = RequestContext(request, {
+		'doodle': Doodle.objects.get(pk=id).title,
+	})
+	return render(request, 'Doodlers/doodle.html', context)
+def comment(request, id):
+	response = "Commenting on %s doodle." % Doodle.objects.get(pk=id)
+	context = RequestContext(request, {
+		'comment': Doodle.objects.get(pk=id),
+	})
+	return render(request, 'Doodlers/comment.html', context)

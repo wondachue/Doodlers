@@ -7,6 +7,12 @@ class Doodle(models.Model):
 	pub_date = models.DateTimeField('date published')
 	def was_published_recently(self):
 		return self.pub_date >= timezone.now() - datetime.timedelta(days=1)
+class Comment(models.Model):
+	doodle = models.ForeignKey(Doodle)
+	comment_text = models.TextField(max_length=500)
+	pub_date = models.DateTimeField('date published')
+	def was_published_recently(self):
+		return self.pub_date >= timezone.now() - datetime.timedelta(days=1)
 class MyUserManager(BaseUserManager):
     def create_user(self, email, date_of_birth, password=None):
         """

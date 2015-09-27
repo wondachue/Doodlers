@@ -4,6 +4,6 @@ from . import views
 
 urlpatterns = [
     url(r'^$', views.index, name='index'),
-    url(r'^(?P<title>[0-9]+)/doodle/$', views.doodle, name='doodle'),
-    url(r'^(?P<title>[0-9]+)/comment/$', views.comment, name='comment'),
+    url(r'^Doodlers/doodle/(?P<id>[0-9]+)/$', views.doodle, name='doodle'),
+    url(r'^Doodlers/comment/(?P<id>[0-9]+)/$', views.comment, name='comment'),
 ]
