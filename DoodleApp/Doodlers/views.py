@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from .models import Doodle
+from .models import Doodle, Comment
 from django.template import RequestContext, loader
 # Create your views here.
 def index(request):
@@ -13,8 +13,10 @@ def index(request):
 def doodle(request, id):
 	response = "This is where %s doodle goes. Expect to see comments here" % Doodle.objects.get(pk=id).title
 	template = loader.get_template('Doodlers/doodle.html')
+	current_doodle = Doodle.objects.get(pk=id);
 	context = RequestContext(request, {
-		'doodle': Doodle.objects.get(pk=id).title,
+		'doodle': current_doodle.title,
+		'comments': current_doodle.comment_set.all()
 	})
 	return render(request, 'Doodlers/doodle.html', context)
 def comment(request, id):
