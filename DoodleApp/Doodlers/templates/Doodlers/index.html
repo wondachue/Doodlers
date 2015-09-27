@@ -7,7 +7,21 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
 <link href="http://getbootstrap.com/examples/cover/cover.css" rel="stylesheet">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-
+<form role="form" action="{% url 'doodle:upload_picture' doodle.id %}" method="post">
+    <div class="row">
+        <div class="col-sm-6" id="search_container">
+            <h3> Submit! </h3>
+        </div>
+        <div class="col-sm-6" id="search_container">
+            <div class="form-group">
+                <input type="file" name="pic" accept="image/*">
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <input type="submit" class="btn btn-info" value="Vote">
+    </div>
+</form>
 {% if latest_doodles %}
     <ul>
     {% for doodle in latest_doodles %}

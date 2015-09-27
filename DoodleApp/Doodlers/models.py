@@ -5,12 +5,20 @@ from django.contrib.auth.models import (
 class Doodle(models.Model):
 	title = models.CharField(max_length=75)
 	pub_date = models.DateTimeField('date published')
+	#image = models.ImageField(upload_to='images/',default = 'images/no-img.png')
+	#user = models.ForeignKey(MyUser, unique=True)
+	def __unicode__(self):
+		return self.doodle
 	def was_published_recently(self):
-		return self.pub_date >= timezone.now() - datetime.timedelta(days=1)
+		now = timezone.now()
+		return now - datetime.timedelta(days=1) <= self.pub_date <= now
 class Comment(models.Model):
 	doodle = models.ForeignKey(Doodle)
 	comment_text = models.TextField(max_length=500)
 	pub_date = models.DateTimeField('date published')
+	votes = models.IntegerField(default=0)
+	def __unicode__(self):
+		return self.comment
 	def was_published_recently(self):
 		return self.pub_date >= timezone.now() - datetime.timedelta(days=1)
 class MyUserManager(BaseUserManager):
@@ -43,8 +51,6 @@ class MyUserManager(BaseUserManager):
         u.is_admin = True
         u.save(using=self._db)
         return u
-
-
 class MyUser(AbstractBaseUser):
     email = models.EmailField(
                         verbose_name='email address',
@@ -86,4 +92,3 @@ class MyUser(AbstractBaseUser):
         "Is the user a member of staff?"
         # Simplest possible answer: All admins are staff
         return self.is_admin
-
