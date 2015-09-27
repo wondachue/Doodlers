@@ -2,6 +2,8 @@ from django.db import models
 from django.contrib.auth.models import (
     BaseUserManager, AbstractBaseUser
 )
+from django.utils import timezone
+import datetime
 class Doodle(models.Model):
 	title = models.CharField(max_length=75)
 	pub_date = models.DateTimeField('date published')
@@ -16,7 +18,7 @@ class Comment(models.Model):
 	doodle = models.ForeignKey(Doodle)
 	comment_text = models.TextField(max_length=500)
 	pub_date = models.DateTimeField('date published')
-	votes = models.IntegerField(default=0)
+	#votes = models.IntegerField(default=0)
 	def __unicode__(self):
 		return self.comment
 	def was_published_recently(self):

@@ -12,8 +12,17 @@
 <h1>{{doodle}}</h1>
 <ol>
 {% for comment in comments %}
-    <li>
-        {{comment.comment_text}}
-    </li>
+	{% for key, score in scores.items %}
+		{% if key == comment.id and score > 0%}
+		<li>
+			{{comment.comment_text}} 
+		</li>
+    	{% endif %}
+    {% endfor %}
 {% endfor %}
+{% if num_bad > 0 %}
+	<li>
+		{{num_bad}} comment(s) have been removed for potentially bad behavior
+	<li>
+{% endif %}
 </ol>

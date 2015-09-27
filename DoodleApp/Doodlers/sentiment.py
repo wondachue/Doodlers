@@ -22,4 +22,7 @@ def getSentiment(text):
 
 	response_value = response_buffer.getvalue()
 	sentiment = json.loads(response_value)
-	return sentiment["negative"][0]["score"]
+	if len(sentiment["negative"]):
+		return sentiment["negative"][0]["score"]
+	else:
+		return 1
